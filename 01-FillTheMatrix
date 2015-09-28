@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class fillTheMatrixA
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        int[,] matrix = new int[n,n];
+        int start = 1;
+
+
+        for (int row = 1; row <=n; row++)
+        {
+            for (int col = 0; col < n; col++)
+            {
+                Console.Write("{0} ", start);
+                start += n;
+
+            }
+            Console.WriteLine();
+            start = 1+row;
+        }
+
+    }
+}
+
