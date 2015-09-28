@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+class activityTracker
+{
+    static void Main()
+    {
+        SortedDictionary<int,SortedDictionary<string, int>> dictionary = 
+                        new SortedDictionary<int, SortedDictionary<string, int>>();
+
+
+        int n = int.Parse(Console.ReadLine());
+        string[] information;
+
+        CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("bg-BG");
+        for (int i = 0; i < n; i++)
+        {
+            information = Console.ReadLine().Split();
+            int month =DateTime.Parse(information[0], cultureInfo).Month;
+            string name = information[1];
+            int distance = int.Parse(information[2]);
+
+            if (!dictionary.ContainsKey(month))
+            {
+                var names = new SortedDictionary<string, int>();
+                names.Add(name, distance);
+                dictionary.Add(month, names);
+            }
+
+            else
+            {
+                if (!dictionary[month].ContainsKey(name))
+                {
+                    dictionary[month].Add(name, distance);
+                }
+                else
+                {
+                    dictionary[month][name] = dictionary[month][name] + distance;
+                }
+            }
+
+        }
+        Print(dictionary);
+
+    }
+
+   static void Print(SortedDictionary<int,SortedDictionary<string,int>> tracker)
+    {
+        foreach (var i in tracker)
+        {
+            
+            Console.Write("{0}:", i.Key);
+            List<string> data = new List<string>();
+
+            foreach (var info in i.Value)
+            {
+                data.Add(string.Format("{0},({1})", info.Key, info.Value));
+            }
+            Console.WriteLine(string.Join(", ", data));
+        }
+       
+    }
+}
+
