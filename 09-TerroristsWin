@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+class terroristsWin
+{
+    static void Main()
+    {
+
+
+        string input = Console.ReadLine();
+        StringBuilder inputAsStringBuilder = new StringBuilder(input);
+
+        int startIndex = input.IndexOf('|');
+        int endIndex = 0;
+        int bombSum = 0;
+        int destroyedArea = 0;
+        while (startIndex!=-1)
+        {
+            bombSum = 0;
+            endIndex = input.IndexOf('|',startIndex+1);
+            if (endIndex<=startIndex)
+            {
+                break;
+            }
+                for (int i = startIndex+1; i < endIndex; i++)
+                {
+                    bombSum += input[i];
+                    inputAsStringBuilder[i] = '.';
+                }
+                destroyedArea = bombSum % 10;
+            
+                for (int i = startIndex; i >=startIndex-destroyedArea && i>=0; i--)
+                {
+                    inputAsStringBuilder[i] = '.';
+                }
+                for (int i = endIndex; i <=endIndex+destroyedArea && i<inputAsStringBuilder.Length ; i++)
+                {
+                    inputAsStringBuilder[i] = '.';
+                }
+            startIndex = input.IndexOf('|', endIndex + 1);
+           
+             } Console.WriteLine(inputAsStringBuilder);
+        }
+
+} 
+
