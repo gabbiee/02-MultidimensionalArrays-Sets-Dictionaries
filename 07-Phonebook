@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class phonebook
+{
+    static void Main()
+    {
+        Dictionary<string, List <string>> Phonebook = new Dictionary<string, List<string>>();
+       
+        string inputInformation = Console.ReadLine();
+        string[] information;
+        string name = string.Empty;
+        string phoneNumber = string.Empty;
+
+
+        while (inputInformation!="search")
+        {
+            information = inputInformation.Split(new char[] { '-' },
+                                    StringSplitOptions.RemoveEmptyEntries);
+            name = information[0];
+            phoneNumber = information[1];
+
+            if (!Phonebook.ContainsKey(name))
+            {
+                Phonebook[name] = new List <string>();
+            }
+            Phonebook[name].Add(phoneNumber);
+            inputInformation= Console.ReadLine(); 
+        }
+
+        string searchName = Console.ReadLine();
+        while (!String.IsNullOrEmpty(searchName))
+        {
+            if (Phonebook.ContainsKey(searchName))
+            {
+                Console.Write("{0} -> {1}", searchName,string.Join(", ",Phonebook[searchName]));
+            }
+            else
+            {
+                Console.WriteLine("Contact {0} does not exist.",searchName);
+            }
+            searchName = Console.ReadLine();
+        }
+    }
+}
+
