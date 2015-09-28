@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class plusremove
+{
+    static void Main()
+    {
+        List<List<char>> board = new List<List<char>>();
+        string input = Console.ReadLine();
+
+        for (int row = 0; input!="END"; row++)
+        {
+            board.Add(new List<char>(input.Length));
+            for (int col = 0; col < input.Length; col++)
+            {
+                board[row].Add(input[col]);
+            }
+            input = Console.ReadLine();
+        }
+
+        char current = '\0';
+        HashSet<KeyValuePair<int, int>> coordinates = new HashSet<KeyValuePair<int, int>>();
+        for (int row = 1; row < board.Count-1; row++)
+        {
+            for (int col = 1; col <board[row].Count-1; col++)
+            {
+                current = char.ToUpper(board[row][col]);
+                if (col<board[row-1].Count&& current.Equals(char.ToUpper(board[row-1][col]))
+                    &&current.Equals(char.ToUpper(board[row][col-1]))
+                    && current.Equals(char.ToUpper(board[row][col+1]))
+                    && col<board[row+1].Count&&current.Equals(char.ToUpper(board[row+1][col])))
+                {
+                    coordinates.Add(new KeyValuePair<int, int>(row, col));
+                    coordinates.Add(new KeyValuePair<int, int>(row + 1, col));
+                    coordinates.Add(new KeyValuePair<int, int>(row - 1, col));
+                    coordinates.Add(new KeyValuePair<int, int>(row, col + 1));
+                    coordinates.Add(new KeyValuePair<int, int>(row, col - 1));
+                }
+               
+            }
+        }
+
+        for (int row = 0; row < board.Count; row++)
+        {
+            for (int col = 0; col < board[row].Count; col++)
+            {
+                KeyValuePair<int, int> currentValue = new KeyValuePair<int, int>(row,col);
+                if (!coordinates.Contains(currentValue))
+                {
+                    Console.Write(board[row][col]);
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
