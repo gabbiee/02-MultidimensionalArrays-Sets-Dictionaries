@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class matrixRotation
+{
+    static void Main()
+    {
+        List<string> lines = new List<string>();
+
+        string[] rotation = Console.ReadLine().Split(new char[] {')','(',' '},
+                                    StringSplitOptions.RemoveEmptyEntries);
+        int degrees = (int.Parse(rotation[1])) % 360;
+
+
+        string input;
+        while (!((input=Console.ReadLine())=="END"))
+        {
+           
+            lines.Add(input);
+        }
+        int height = lines.Count();
+        int width = lines.OrderBy(x => x.Length).Last().Length;
+        string[] matrix = new string[height];
+
+        for (int row = 0; row < height; row++)
+        {
+            matrix[row] = lines[row].PadRight(width, ' ');
+        }
+
+        if (degrees==90)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                for (int row = height-1; row>=0 ; row--)
+                {
+                    Console.Write(matrix[row][col]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        if (degrees==180)
+        {
+            for (int row =height-1; row>=0; row--)
+            {
+                for (int col =width-1; col>=0; col--)
+                {
+                    Console.Write(matrix[row][col]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        if (degrees == 270)
+        {
+            for (int col = width - 1; col >= 0; col--)
+            {
+                for (int row = 0; row < height; row++)
+                {
+                    Console.Write(matrix[row][col]);
+                }
+                Console.WriteLine();
+            }
+        }
+        if (degrees!=90 && degrees!=180 && degrees!=270)
+       
+        {
+            for (int row = 0; row < height; row++)
+            {
+                for (int col = 0; col < width; col++)
+                {
+                    Console.Write(matrix[row][col]);
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
+
