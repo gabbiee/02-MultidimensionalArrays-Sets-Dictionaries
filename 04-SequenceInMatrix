@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class sequenceInMatrix
+{
+    static void Main()
+    {
+        Console.WriteLine("Write height: ");
+        int rows = int.Parse(Console.ReadLine());
+        Console.WriteLine("Write width: ");
+        int cols = int.Parse(Console.ReadLine());
+
+        string[,] matrix = new string[rows, cols];
+        for (int row = 0; row < rows; row++)
+        {
+           
+            for (int col = 0; col < cols; col++)
+            {
+                matrix[row, col] = Console.ReadLine();
+            }
+        }
+
+        int currentLength = 1;
+        int bestLength = int.MinValue;
+        string equal = string.Empty;
+        string bestEqual = string.Empty;
+
+        for (int row = 0; row < rows-1; row++)
+        {
+            for (int col = 0; col < cols-1; col++)
+            {
+                if (matrix[row,col].Equals(matrix[row,col+1])
+                    || matrix[row,col].Equals(matrix[row+1,col])
+                    || matrix[row,col].Equals(matrix[row+1,col+1]))
+                {
+                    currentLength++;
+                    equal = matrix[row, col];
+                }
+                if (currentLength>bestLength)
+                {
+                    bestLength = currentLength;
+                    bestEqual = equal;
+                }
+            }
+        }
+        currentLength = 1;
+        equal = string.Empty;
+
+
+        for (int row = 0; row < rows-1; row++)
+        {
+            if (matrix[row,cols-1].Equals(matrix[row+1,cols-1]))
+            {
+                equal = matrix[row, cols - 1];
+                currentLength++;
+            }
+            if (currentLength>bestLength)
+            {
+                bestLength = currentLength;
+                bestEqual = equal;
+            }
+
+        }
+
+        for (int i = 0; i < bestLength; i++)
+        {
+            Console.Write("{0}, ",bestEqual);
+        }
+       
+    }
+
+}
+
