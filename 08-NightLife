@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class nightLife
+{
+    static void Main()
+    {
+        Dictionary<string, SortedDictionary<string, SortedSet<string>>> dictionary = 
+            new Dictionary<string,SortedDictionary<string,SortedSet<string>>> ();
+        string city = "";
+        string venue = "";
+        string performer = "";
+
+        string input = Console.ReadLine();
+        string[] information;
+
+        while (input!="END")
+        {
+            information= input.Split(new char[] { ';' },
+                                StringSplitOptions.RemoveEmptyEntries);
+            city = information[0];
+            venue = information[1];
+            performer = information[2];
+
+            if (!dictionary.ContainsKey(city))
+            {
+                dictionary[city] = new SortedDictionary<string, SortedSet<string>>();
+            }
+            if (!dictionary[city].ContainsKey(venue))
+            {
+                dictionary[city][venue] = new SortedSet<string>();
+            }
+            dictionary[city][venue].Add(performer);
+
+            input = Console.ReadLine();
+
+            foreach (var repeatedCities in dictionary)
+            {
+                Console.WriteLine(repeatedCities.Key);
+
+                foreach (var repeatedVenues in repeatedCities.Value)
+                {
+                    Console.WriteLine("->{0}: {1}",repeatedVenues.Key,string.Join(", ",repeatedVenues.Value));
+                }
+            }
+        }
+    }
+}
+
