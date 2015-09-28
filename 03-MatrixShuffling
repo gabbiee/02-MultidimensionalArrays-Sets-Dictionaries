@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class matrixShuffling
+{
+    static void Main()
+    {
+        int rows= int.Parse(Console.ReadLine());
+        int cols= int.Parse(Console.ReadLine());
+
+        string[,] matrix = new string[rows, cols];
+        for (int row =0; row < rows; row++)
+        {
+            for (int col = 0; col < cols;col++)
+            {
+                matrix[row,col] = Console.ReadLine();
+            }
+        }
+
+        int x1 = 0;
+        int y1 = 0;
+        int x2 = 0;
+        int y2 = 0;
+        string current = string.Empty;
+        string command = Console.ReadLine();
+        while (command!="END")
+        {
+            string[] inputCommand = command.Split(new char[] {' '},
+                StringSplitOptions.RemoveEmptyEntries);
+            if (inputCommand[0]=="swap" && inputCommand.Length==5)
+            {
+                x1 = int.Parse(inputCommand[1]);
+                y1 = int.Parse(inputCommand[2]);
+                x2 = int.Parse(inputCommand[3]);
+                y2 = int.Parse(inputCommand[4]);
+
+                if ((x1>=0 && x1<rows) && (x2>=0 && x2<rows)
+                    && (y1>=0 && y1<cols) && (y2>=0 && y2<cols))
+                {
+                    current = matrix[x1, y1];
+                    matrix[x1, y1] = matrix[x2, y2];
+                    matrix[x2, y2] = current;
+
+                    Console.WriteLine("(After swapping {0} and {1}):",matrix[x2,y2],matrix[x1,y1]);
+                    for (int row = 0; row < rows; row++)
+                    {
+                        for (int col = 0; col < cols; col++)
+                        {
+                            Console.Write("{0, 2} ", matrix[row, col]);
+                        }
+                        Console.WriteLine();
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input!");
+            }
+            command = Console.ReadLine();
+        }
+    }
+}
+
